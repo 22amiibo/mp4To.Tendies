@@ -1,24 +1,62 @@
-# iOS Animated Wallpaper Creator
+Here’s a concise and clear **README** for your script, focusing on how to run it and what features it offers:
 
-This Python script provides a robust solution for converting standard MP4 video files into custom animated wallpapers for iOS devices, packaged in the `.tendies` format. This format is compatible with internal Apple tools like Mica and can be used on jailbroken or sideloaded devices.
+---
 
-## Features
+# 🎥 Create iOS `.tendies` Live Wallpapers from MP4
 
-* **MP4 to Image Sequence Conversion**: Efficiently extracts frames from your MP4 video and saves them as a sequence of JPEG images.
-* **Core Animation (`.caml`) Generation**: Automatically creates the necessary `main.caml` files for both the background and floating layers. The script specifically utilizes a `CAKeyframeAnimation` structure to explicitly list each image frame, ensuring broad compatibility with iOS wallpaper systems.
-* **iOS Bundle Structuring**: Generates all required `.plist` and other descriptor files, organizing them into the specific directory structure expected by iOS for `.tendies` wallpaper bundles.
-* **Customization**: Allows you to define custom wallpaper names, target resolutions, and scaling factors to match various iPhone models.
-* **Temporary File Management**: Uses temporary directories for intermediate files, ensuring a clean and automated process.
+This Python script converts any MP4 video into a `.tendies` file — the format used by iOS for custom animated lock screen wallpapers (used with PosterKit). It's designed for advanced users who want full control over the live wallpaper format.
 
-##  Prerequisites
+## ✅ Features
 
-Before you begin, ensure you have the following installed on your system:
+* **MP4 to .tendies conversion**: Transforms any MP4 into a valid iOS animated wallpaper.
+* **Automatic frame extraction**: Grabs frames at the source video’s FPS and resizes them.
+* **CAML generation**: Builds the required `main.caml`, `index.xml`, and `assetManifest.caml` files for layered animation.
+* **Supports iPhone resolutions**: Defaults to 1290x2796 @3x for iPhone 15 Pro Max, but customizable.
+* **Complete `.tendies` output**: Includes `Wallpaper.plist`, `providerInfo.plist`, and other required PosterKit identifiers.
+* **Clean temporary files**: Uses a temp directory and cleans up after the archive is created.
 
-* **Python 3.x**
-* **OpenCV (`opencv-python`)**: Essential for video frame extraction and resizing.
-* **FFmpeg**: While the script uses `cv2.VideoCapture` for frame extraction, FFmpeg is a fundamental tool for video processing and is generally recommended to have installed on your system.
+## 🛠 Requirements
 
-You can install the required Python libraries using `pip`:
+Install required packages:
 
 ```bash
-pip install opencv-python
+pip install opencv-python ffmpeg-python
+```
+
+Make sure you have `ffmpeg` installed on your system.
+
+## ▶️ How to Run
+
+Save your video as `input.mp4` (or another name) and run the script:
+
+```bash
+python your_script_name.py
+```
+
+The script will:
+
+1. Extract all frames from the MP4.
+2. Resize them to the iPhone’s wallpaper resolution.
+3. Generate all required `.plist`, `.caml`, and `.xml` files.
+4. Zip the structure and rename it to a `.tendies` file.
+
+The resulting file will be:
+
+```
+MyAnimatedWallpaper.tendies
+```
+
+You can change output settings directly in the `create_tendies_from_mp4()` function:
+
+```python
+create_tendies_from_mp4(
+    input_mp4_path="your_video.mp4",
+    wallpaper_name="MyAnimatedWallpaper",
+    target_resolution_width=1290,
+    target_resolution_height=2796,
+    scale_factor=3,
+    identifier=9136
+)
+```
+
+---
